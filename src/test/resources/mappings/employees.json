@@ -1,0 +1,22 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "/employees"
+  },
+  "response": {
+    "status": 200,
+    "jsonBody": [
+      {
+        "id": 123,
+        "name": "John Doe"
+      },
+      {
+        "id": 456,
+        "name": "Jane Doe"
+      }
+    ],
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}
