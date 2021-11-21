@@ -34,7 +34,10 @@ dependencies {
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
     testCompileOnly 'org.projectlombok:lombok:1.18.22'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.22'
+    testImplementation 'io.projectreactor:reactor-test:3.4.12'
 }
+
+defaultTasks 'clean', 'build'
 
 java {
     toolchain {

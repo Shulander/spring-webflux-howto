@@ -3,10 +3,7 @@ package us.vicentini.webflux;
 import com.github.tomakehurst.wiremock.junit5.WireMockTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.web.reactive.function.client.WebClient;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import reactor.test.StepVerifier;
 
 @WireMockTest(httpPort = 8081)
 class WebClientEmployeeTest {
@@ -22,14 +19,12 @@ class WebClientEmployeeTest {
                 .get()
                 .uri("/employees/123")
                 .retrieve()
-                .bodyToMono(Employee.class)
-                .block();
+                .bodyToMono(Employee.class);
 
         //assertions
-        assertNotNull(employee);
-        assertEquals(123L, employee.id());
-        assertEquals("John Doe", employee.name());
-        assertEquals(new Employee(123L, "John Doe"), employee);
+        StepVerifier.create(employee)
+                .expectNext(new Employee(123L, "John Doe"))
+                .verifyComplete();
     }
 
 
@@ -45,15 +40,12 @@ class WebClientEmployeeTest {
                 .get()
                 .uri("/employees")
                 .retrieve()
-                .bodyToFlux(Employee.class)
-                .collectList()
-                .block();
+                .bodyToFlux(Employee.class);
 
         //assertions
-        assertNotNull(employees);
-        assertFalse(employees.isEmpty());
-        assertEquals(2, employees.size());
-        assertEquals(new Employee(123L, "John Doe"), employees.get(0));
-        assertEquals(new Employee(456L, "Jane Doe"), employees.get(1));
+        StepVerifier.create(employees)
+                .expectNext(new Employee(123L, "John Doe"))
+                .expectNext(new Employee(456L, "Jane Doe"))
+                .verifyComplete();
     }
 }
