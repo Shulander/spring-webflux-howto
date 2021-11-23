@@ -10,7 +10,10 @@
       "name": "John Doe"
     },
     "headers": {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      "Set-Cookie": [
+        "SESSION=GPUTWPm4dJTyHbrun3HSbm; Path=/; Secure; HttpOnly"
+      ]
     }
   }
 }
